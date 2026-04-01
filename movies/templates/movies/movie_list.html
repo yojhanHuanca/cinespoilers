@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineSpoilers - Listado de Películas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .hero-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: white;
+        }
+        .movie-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .movie-header {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 1.5rem;
+        }
+        .movie-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .movie-title i {
+            margin-right: 0.5rem;
+        }
+        .movie-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .movie-content {
+            padding: 1.5rem;
+        }
+        .movie-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        .no-movies {
+            text-align: center;
+            background: white;
+            border-radius: 15px;
+            padding: 4rem 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .container {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-section">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="fas fa-film me-3"></i>CineSpoilers
+            </h1>
+            <p class="lead">Descubre las mejores películas y sus spoilers más impactantes</p>
+        </div>
+
+        <div class="row">
+            {% for movie in movies %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="movie-card h-100">
+                        <div class="movie-header">
+                            <div class="movie-title">
+                                <i class="fas fa-video"></i>{{ movie.title }}
+                            </div>
+                            <div class="movie-date">
+                                <i class="fas fa-calendar-alt me-2"></i>Estreno: {{ movie.release_date|date:"d/m/Y" }}
+                            </div>
+                        </div>
+                        <div class="movie-content d-flex flex-column h-100">
+                            <div class="movie-description flex-grow-1">
+                                {{ movie.description }}
+                            </div>
+                            <div class="movie-meta">
+                                <small class="text-muted">
+                                    <i class="fas fa-clock me-1"></i>Fecha de lanzamiento
+                                </small>
+                                <span class="badge bg-primary">
+                                    <i class="fas fa-star me-1"></i>Película
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="no-movies">
+                        <i class="fas fa-film fa-3x text-muted mb-3"></i>
+                        <h3 class="text-muted">No hay películas disponibles</h3>
+                        <p class="text-muted">¡Vuelve pronto para ver nuevas películas!</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
